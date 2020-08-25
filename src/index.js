@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { render } from '@testing-library/react';
 
 function Square(props) {
     return (
@@ -48,17 +47,17 @@ function Game() {
     const[stepNumber,setStepNumber]=useState(0);
 
     function handleClick(i) {
-        const history=history.slice(0,stepNumber + 1);
-        const current= history[history.length-1];
+        const newHistory=history.slice(0,stepNumber + 1);
+        const current= newHistory[newHistory.length-1];
         const squares=current.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
             return;
           }
           squares[i]=this.state.xIsNext?'X':'O';
-        setHistory(history.concat([{
+        setHistory(newHistory.concat([{
             squares:squares
           }]));
-        setStepNumber(history.length);
+        setStepNumber(newHistory.length);
         setXIsNext(!xIsNext);
     }
 
@@ -84,7 +83,7 @@ function Game() {
         return (
           <div>
             <li key={move}>
-              <button onClick={()=>this.jumpTo(move)}>
+              <button onClick={()=>jumpTo(move)}>
                 {desc}
               </button>
             </li>
